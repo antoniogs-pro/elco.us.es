@@ -1,0 +1,26 @@
+# interfaces(5) file used by ifup(8) and ifdown(8)
+auto lo
+iface lo inet loopback
+
+auto eth0
+#### DHCP
+#iface eth0 inet dhcp
+#
+#### Pública
+#iface eth0 inet static
+# address 150.214.143.178
+# netmask 255.255.255.0
+# gateway 150.214.143.1
+# dns-nameservers 192.168.5.102 150.214.186.69 193.147.175.20
+#dns-search int. us.es.
+#up ethtool -s eth0 wol g
+#
+##### Privada
+iface eth0 inet static
+ address 10.10.10.2
+ netmask 255.255.255.0
+ gateway 10.10.10.1
+#
+# Datos DNS genéricos
+ dns-nameservers 192.168.5.102 150.214.186.69 193.147.175.20 8.8.8.8
+ dns-search us.es.

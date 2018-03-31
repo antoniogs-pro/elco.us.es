@@ -1,0 +1,9 @@
+Host_Alias	VPN = 192.168.0.0/255.255.0.0, 10.0.0.0/255.0.0.0
+User_Alias	OPERATORUSERS =  sysop, antonio
+Runas_Alias     OPERATOR = root, apache, antonio
+Cmnd_Alias	SYSOP =  /bin/echo, /bin/cat, /bin/sleep, /bin/more, /bin/date, /bin/less
+Cmnd_Alias	GITOP = /usr/bin/git, /bin/acturepo
+
+#%ITI VPN=(OPERATOR:ALL) NOPASSWD: SYSOP
+OPERATORUSERS  VPN=(OPERATOR:ALL) NOPASSWD: GITOP, NOEXEC: SYSOP
+

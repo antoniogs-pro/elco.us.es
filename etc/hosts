@@ -1,0 +1,63 @@
+127.0.0.1	localhost
+#127.0.1.1	sic-desktop
+#127.0.1.1	elco.us.es
+
+# Mi host
+150.214.143.178 elco.us.es elco
+# 150.214.143.178 elco
+#
+
+# gateway y servidor ntp
+150.214.143.1  gateway&ntp
+
+#intranet
+193.147.175.141   vpn
+192.168.5.39      seguimiento.us.es seguimiento.int
+
+#DNS
+150.214.186.69  onix.us.es
+193.147.175.20	  dns-intranet
+192.168.7.102	  dns-vpn
+
+#monitorización y backup
+192.168.20.101   nagioshosting.int
+192.168.5.102    ITInagios.int
+192.168.5.104    nagioscorreo.int
+192.168.20.165   nagioUS.int      nagius
+#
+#192.168.5.141   recupera.us.es
+#192.168.5.141   recupera.int
+
+#en DNS interno
+192.168.1.196 	discovirt_dev.int
+192.168.1.191 	discovirt-pre.int
+
+#
+# servicios Intranet
+#VPN
+193.147.175.141   vpn
+# correo
+192.168.5.39      seguimiento.us.es seguimiento.int
+# continuidad
+193.147.175.75    continuidad.us.es
+172.20.12.125     arquero.int   arquero
+
+# Pre-Producción
+192.168.1.192   buzonwebpre.us.es aquidebeirbuzon.us.es
+192.168.1.160	buzonwebdev.us.es
+192.168.1.204	buzonweb95.us.es
+192.168.5.203	listasc.us.es
+192.168.4.15	identidadpre.us.es # :38181/idm
+192.168.4.15	maquetagid.us.es  # :38181/idm
+192.168.1.190	paprobar.us.es
+192.168.4.99    maqueta.us.es
+
+# Pruebas formularios
+192.168.3.199   demosolicitudes.us.es
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
