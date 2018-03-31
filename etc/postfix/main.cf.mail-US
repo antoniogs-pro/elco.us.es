@@ -1,0 +1,116 @@
+# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+
+# Debian specific:  Specifying a file name will cause the first
+# line of that file to be used as the name.  The Debian default
+# is /etc/mailname.
+#myorigin = /etc/mailname
+
+# SENDING MAIL
+# 
+# The myorigin parameter specifies the domain that locally-posted
+# mail appears to come from. The default is to append $myhostname,
+# which is fine for small sites.  If you run a domain with multiple
+# machines, you should (1) change this to $mydomain and (2) set up
+# a domain-wide alias database that aliases each user to
+# user@that.users.mailhost.
+#
+# For the sake of consistency between sender and recipient addresses,
+# myorigin also specifies the default domain name that is appended
+# to recipient addresses that have no @domain part.
+#
+#myorigin = $myhostname
+myorigin = $mydomain
+
+smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+
+readme_directory = no
+
+# TLS parameters
+#smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+#smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+smtpd_tls_cert_file=/etc/postfix/cert/postfix.pem
+smtpd_tls_key_file=/etc/postfix/cert/postfix.key
+smtpd_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+# See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
+# information on enabling SSL in the smtp client.
+
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+#myhostname = sic-desktop
+#myhostname = elco.us.es
+myhostname = anglez
+
+# The mydomain parameter specifies the local internet domain name.
+# The default is to use $myhostname minus the first component.
+# $mydomain is used as a default value for many other configuration
+# parameters.
+#
+#mydomain = domain.tld
+
+# ALIAS DATABASE
+#
+# The alias_maps parameter specifies the list of alias databases used
+# by the local delivery agent. The default list is system dependent.
+#
+# On systems with NIS, the default is to search the local alias
+# database, then the NIS alias database. See aliases(5) for syntax
+# details.
+# 
+# If you change the alias database, run "postalias /etc/aliases" (or
+# wherever your system stores the mail alias file), or simply run
+# "newaliases" to build the necessary DBM or DB file.
+#
+# It will take a minute or so before changes become visible.  Use
+# "postfix reload" to eliminate the delay.
+#
+#alias_maps = dbm:/etc/aliases
+#alias_maps = hash:/etc/aliases, nis:mail.aliases
+#alias_maps = netinfo:/aliases
+alias_maps = hash:/etc/aliases
+
+
+# The alias_database parameter specifies the alias database(s) that
+# are built with "newaliases" or "sendmail -bi".  This is a separate
+# configuration parameter, because alias_maps (see above) may specify
+# tables that are not necessarily all under control by Postfix.
+#
+#alias_database = dbm:/etc/aliases
+#alias_database = dbm:/etc/mail/aliases
+#alias_database = hash:/etc/aliases, hash:/opt/majordomo/aliases
+alias_database = hash:/etc/aliases
+
+
+
+#mydestination = us.es, alum.us.es, sic-desktop, localhost.localdomain, localhost
+mydestination =  sic-desktop, localhost.localdomain, localhost
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = ipv4
+
+#
+relayhost = [mail.us.es]:25
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl/USpasswd
+smtp_sasl_security_options = noanonymous
+smtp_use_tls = yes
+#smtp_tls_CAfile = /etc/postfix/FNMTClase2CA.pem
+#Flujo
+smtp_destination_concurrency_limit = 1
+smtp_destination_rate_delay = 35s
+smtp_extra_recipient_limit = 100 
+
+
+#virtual_alias_maps = hash:/etc/postfix/virtual
+# reescribir el sender (from)
+sender_canonical_maps = hash:/etc/postfix/canonical
